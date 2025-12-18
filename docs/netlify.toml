@@ -1,0 +1,14 @@
+[build]
+  publish = "."
+  command = "echo 'Static site deployed'"
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/docs/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*.pdf"
+  [headers.values]
+    Content-Type = "application/pdf"
+    Content-Disposition = "inline"
