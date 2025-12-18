@@ -302,7 +302,7 @@ Om AI-agenter kan ha genuin empatisk alignment:
 
 ## 📖 Etiska Dimensioner
 
-### En Etiik av Empati
+### En Etik av Empati
 
 ÆSI föreslår implicit en etisk position:
 

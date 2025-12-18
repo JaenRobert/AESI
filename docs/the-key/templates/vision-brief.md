@@ -119,7 +119,7 @@ Om AI kan uppnå genuin empatisk alignment:
 Komplexitet kan hanteras genom förståelse, inte kontroll
 Autonomi och samarbete kan koexistera
 Skönhet och funktionalitet kan vara samma sak
-Framtiden kan designs med empati som grund
+Framtiden kan designas med empati som grund
 ```
 
 ---
