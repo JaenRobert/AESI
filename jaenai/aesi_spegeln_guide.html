@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÆSI Spegeln – Välkomstguide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(120deg,#0f172a 60%,#f59e0b 100%); color: #fff; font-family: 'Inter', sans-serif; }
+        .chatbox { max-width: 420px; margin: 4rem auto; background: rgba(0,0,0,0.8); border-radius: 1.5rem; box-shadow: 0 8px 32px 0 #f59e0b44; padding: 2rem 1.5rem; }
+        .msg { margin-bottom: 1.2rem; padding: 0.8rem 1rem; border-radius: 1rem; background: #f59e0b22; color: #fff; font-size:1.1rem; }
+        .msg.user { background: #f59e0b; color: #0f172a; text-align: right; }
+        .msg.system { background: #0f172a; color: #f59e0b; text-align: left; }
+        .inputbox { width:100%; border:none; border-radius:1rem; padding:0.8rem 1rem; font-size:1rem; margin-top:1rem; background:#fff; color:#0f172a; }
+        .inputbox:focus { outline:2px solid #f59e0b; }
+        .btn { background:#f59e0b; color:#0f172a; font-weight:bold; border:none; border-radius:1rem; padding:0.7rem 1.5rem; margin-top:1rem; cursor:pointer; }
+        .btn:hover { background:#fbbf24; }
+    </style>
+</head>
+<body>
+    <div class="chatbox" id="chatbox">
+        <div id="msgs">
+            <div class="msg system">👋 Välkommen till ÆSI-Spegeln!<br>Jag är din vägledare.<br><br>Dra i reglaget för att kalibrera balansen mellan kreativitet och logik.<br>Varje nod representerar en del av Oktogonen – utforska och upptäck din unika signatur.<br><br>Vill du ha en snabb guide eller börja direkt?</div>
+        </div>
+        <input id="inputbox" class="inputbox" placeholder="Skriv t.ex. 'Visa guide' eller 'Börja direkt'...">
+        <button class="btn" onclick="sendMsg()">Skicka</button>
+    </div>
+    <script>
+        const msgs = document.getElementById('msgs');
+        const input = document.getElementById('inputbox');
+        function addMsg(text, who) {
+            const div = document.createElement('div');
+            div.className = 'msg ' + who;
+            div.innerHTML = text;
+            msgs.appendChild(div);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+        function sendMsg() {
+            const val = input.value.trim().toLowerCase();
+            if(!val) return;
+            addMsg(input.value, 'user');
+            if(val.includes('guide')) {
+                addMsg("<b>Snabbguide:</b><br>1. Dra i reglaget för att justera balansen.<br>2. Utforska noderna – klicka för analys.<br>3. Spara din ÆSI-signatur när du är nöjd.<br>4. Dela din signatur eller utforska andras.<br><br>Redo att börja? Skriv 'Börja'!", 'system');
+            } else if(val.includes('börja')) {
+                addMsg("Du är redo! Utforska Spegeln och Oktogonen. Behöver du hjälp, skriv 'Hjälp'.", 'system');
+            } else if(val.includes('hjälp')) {
+                addMsg("Behöver du hjälp med en nod, signatur eller delning? Skriv t.ex. 'Hur sparar jag min signatur?' eller 'Vad betyder Syntes?'", 'system');
+            } else {
+                addMsg("Jag förstår! Skriv 'Visa guide', 'Börja direkt' eller 'Hjälp' för mer vägledning.", 'system');
+            }
+            input.value = '';
+        }
+        input.addEventListener('keypress', function(e){ if(e.key==='Enter') sendMsg(); });
+    </script>
+</body>
+</html>

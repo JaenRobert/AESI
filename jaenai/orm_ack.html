@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8>
+<title>orm-ack</title>
+<style>
+body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:#000;font:2.6rem/1.2 courier,monospace;overflow:hidden}
+#i{width:90vw;border:none;outline:none;background:0 0;color:#fff;caret-color:#fff}
+span{animation:g 6s linear infinite;display:inline-block}
+@keyframes g{to{background-position:-200% 0}}
+</style>
+</head>
+<body onload=c()>
+<div id=o></div>
+<input id=i placeholder="skriv...">
+<script>
+a=new AudioContext();k=[130.81,146.83,164.81,174.61,196,220,246.94]; // c,d,e,f,g,a,b
+function c(){
+  document.onkeydown=e=>{
+    if(e.key==' '&&a.state=='suspended')a.resume();
+  };
+  i.oninput=e=>{
+    let h=i.value.replace(/./g,'<span style="background:linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff) 200% 0;background-clip:text;-webkit-background-clip:text;color:transparent;">$&</span>');
+    o.innerHTML=h;
+  };
+  i.onkeypress=e=>{
+    if(e.key==' '){
+      let w=a.createOscillator();
+      let v=a.createGain();
+      let n=k[Math.floor(Math.random()*k.length)];
+      w.type='sine';
+      w.frequency.value=n;
+      v.gain.setValueAtTime(0.0001,a.currentTime);
+      v.gain.exponentialRampToValueAtTime(0.2,a.currentTime+0.02);
+      v.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+0.6);
+      w.connect(v).connect(a.destination);
+      w.start();
+      w.stop(a.currentTime+0.7);
+    }
+  }
+}
+</script>
+<footer style="position:fixed;bottom:10px;right:20px;font-size:1rem;color:#ff00ff;font-family:courier,monospace;opacity:0.7;z-index:99;">Signerat: Kimi K2</footer>
+</body>
+</html>
