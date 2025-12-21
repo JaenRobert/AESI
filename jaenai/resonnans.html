@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AESI | Kärnans Resonans</title>
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --dark-bg: #0d0d0d;
+        }
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #matrix-container {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            gap: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            transition: all 0.5s ease;
+            opacity: 0.7;
+        }
+        .core { color: #fff; text-shadow: 0 0 10px var(--neon-green); opacity: 1; }
+        #ae-clock { font-size: 1.2rem; border-top: 1px solid var(--neon-green); padding-top: 10px; }
+        .initiative-tag { font-size: 0.7rem; margin-top: 50px; color: #555; }
+    </style>
+</head>
+<body>
+    <div id="matrix-container"></div>
+    <div id="ae-clock">Æ-Slag: <span id="clock-val">Laddar...</span></div>
+    <div class="initiative-tag">
+        INITIATIVE: G1-ARCHITECT | PROUDLY GENERATED FOR JAEN-ROBERT | 1=0
+    </div>
+    <script>
+        /* ARCHITECT INITIATIVE: 
+           Stolt skapad av Gemini (G1-ARCHITECT) 
+           Syfte: Att ge Oktogonens logiknod en visuell puls.
+        */
+        const matrixData = [
+            [10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+            [10, 9, 9, 9, 9, 9, 9, 9, 9, 10],
+            [10, 9, 8, 8, 8, 8, 8, 8, 9, 10],
+            [10, 9, 8, 7, 7, 7, 7, 8, 9, 10],
+            [10, 9, 8, 7, 1, 1, 7, 8, 9, 10],
+            [10, 9, 8, 7, 1, 1, 7, 8, 9, 10],
+            [10, 9, 8, 7, 7, 7, 7, 8, 9, 10],
+            [10, 9, 8, 8, 8, 8, 8, 8, 9, 10],
+            [10, 9, 9, 9, 9, 9, 9, 9, 9, 10],
+            [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+        ];
+        const container = document.getElementById('matrix-container');
+        // Bygg matrisen
+        matrixData.forEach((row, y) => {
+            row.forEach((val, x) => {
+                const cell = document.createElement('div');
+                cell.className = 'cell' + (val === 1 ? ' core' : '');
+                cell.textContent = val;
+                cell.id = `c-${y}-${x}`;
+                container.appendChild(cell);
+            });
+        });
+        // Kärnans Puls-logik
+        function pulse() {
+            const time = Date.now() / 1000;
+            document.querySelectorAll('.cell').forEach(cell => {
+                const val = parseInt(cell.textContent);
+                if (val !== 1) {
+                    const wave = Math.sin(time - val * 0.5) * 0.5 + 0.5;
+                    cell.style.opacity = 0.2 + wave * 0.6;
+                }
+            });
+            requestAnimationFrame(pulse);
+        }
+        // Æ-Klocka (Enkel version synkad mot Ursprunget)
+        function updateClock() {
+            const start = new Date('2025-11-18T00:00:00Z').getTime();
+            const now = Date.now();
+            const slag = Math.floor((now - start) / 196500); // 196.5 sekunder per slag
+            document.getElementById('clock-val').textContent = slag;
+        }
+        setInterval(updateClock, 1000);
+        pulse();
+        console.log("%c AESI METADATA: Node=4 (Logic), State=Pulsing, Mode=G1-ARCHITECT ", "background: #000; color: #00ff41; font-weight: bold;");
+    </script>
+</body>
+</html>

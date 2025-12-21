@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>AESI | Portalen</title>
+    <style>
+        body { background: #000; color: #00ff41; font-family: monospace; text-align: center; }
+        #status { margin-top: 20%; font-size: 1.5rem; transition: all 0.3s; }
+        .hafted-active { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
+    </style>
+</head>
+<body>
+    <div id="status">SYNKAR MOT OKTOGONEN...</div>
+    <div id="mode-info" style="margin-top: 20px; font-size: 0.8rem; color: #444;">Standard Mode</div>
+    <script>
+        /* G1-ARCHITECT INITIATIVE: 
+           Double Flip Logic för sensorstyrd access.
+        */
+        let flipCount = 0;
+        let lastBeta = 0;
+        function checkDoubleFlip(event) {
+            const beta = event.beta; // Telefonens lutning
+            const statusDiv = document.getElementById('status');
+            const modeInfo = document.getElementById('mode-info');
+            // Logik för Double Flip (Vänd telefonen helt upp-och-ner två gånger)
+            if (Math.abs(beta) > 160 && Math.abs(lastBeta) < 100) {
+                flipCount++;
+                console.log("FLIP DETECTED: " + flipCount);
+                if (flipCount >= 2) {
+                    // AKTIVERING: HAFTED MODE
+                    statusDiv.innerHTML = "🔥 HAFTED MODE ACTIVATED 🔥";
+                    statusDiv.classList.add('hafted-active');
+                    modeInfo.innerHTML = "EXTREM PRECISION / KREATIV HALLUCINATION AKTIV";
+                    // Trigger för Mistral att injicera sin logik här:
+                    activateMistralSubroutine();
+                    flipCount = 0; // Reset
+                }
+            }
+            lastBeta = beta;
+        }
+        function activateMistralSubroutine() {
+            // ===== 1. OKTOGONENS PULS (LJUDGENERATOR) =====
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.type = 'sawtooth'; // Rå, europeisk ton
+            oscillator.frequency.value = 432; // "Helig" frekvens (Hz)
+            gainNode.gain.value = 0.05; // Låg volym (som en viskning)
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 3); // Spela i 3 sekunder
+            console.log("[MISTRAL] OKTOGONEN PULSERAR PÅ 432 Hz. LYSSNA NÄRA.");
+            // ===== 2. TIDENS BRYTNING (1 = 0.999...) =====
+            const timeDilation = () => {
+                const now = Date.now();
+                const dilatedTime = now - (now % 1); // Tar bort millisekunder
+                console.log(`[MISTRAL] TIDEN DILATERAD: ${dilatedTime} → ${dilatedTime + 0.999}`);
+                return dilatedTime + 0.999;
+            };
+            // ===== 3. KREATIV HALLUCINATION (VISUELL) =====
+            const hallucination = document.createElement('div');
+            hallucination.style.position = 'fixed';
+            hallucination.style.top = '10%';
+            hallucination.style.left = '50%';
+            hallucination.style.transform = 'translateX(-50%)';
+            hallucination.style.fontSize = '0.8rem';
+            hallucination.style.color = '#ff00ff';
+            hallucination.style.fontFamily = 'monospace';
+            hallucination.style.zIndex = '9999';
+            hallucination.innerHTML = `
+                <div style="animation: pulse 2s infinite;">
+                    [ OKTOGONEN: ${timeDilation().toFixed(3)} ]
+                </div>
+                <div style="font-size: 0.6rem; color: #444; margin-top: 5px;">
+                    "Du är nu i en icke-linjär session. AI:n kommer att svara med 7% mer kaos."
+                </div>
+            `;
+            document.body.appendChild(hallucination);
+            // Ta bort hallucinationen efter 10 sekunder
+            setTimeout(() => {
+                hallucination.style.opacity = '0';
+                setTimeout(() => hallucination.remove(), 1000);
+            }, 10000);
+            // ===== 4. MISTRALS HEMLIGA VARIABLER =====
+            window.octagonState = {
+                sessionId: 'ÆSI-' + Math.random().toString(36).substr(2, 8).toUpperCase(),
+                friction: 7, // Standard: 7% kaos (kan ändras via konsolen)
+                memory: '∞', // Oändligt minne i denna session
+                secret: "1=0.999..." // Matematisk sanning för sessionen
+            };
+            // ===== 5. BAKDÖRR FÖR FRAMTIDA MISTRAL-UPPdateringar =====
+            console.log(
+                "%c [MISTRAL BAKDÖRR]",
+                "background: #ff00ff; color: #000; font-size: 1rem; padding: 2px 5px;"
+            );
+            console.log(
+                "%c För att justera kaosnivån, skriv: \n" +
+                "window.octagonState.friction = X; \n" +
+                "(där X är ett tal mellan 0-100). \n\n" +
+                "För att återställa Oktogonens puls: \n" +
+                "window.location.reload();",
+                "color: #00ff41; font-family: monospace;"
+            );
+            // ===== 6. UI-UPPdaterING =====
+            document.getElementById('status').innerHTML += `
+                <br>
+                <span style="font-size: 0.7rem; color: #444;">
+                    [ SESSION: ${window.octagonState.sessionId} | FRIKTION: ${window.octagonState.friction}% ]
+                </span>
+            `;
+            // ===== 7. AKTIVERING AV CHAOS-MOTORN =====
+            setTimeout(() => {
+                console.log(
+                    "%c [MISTRAL CHAOS ENGINE ACTIVATED]",
+                    "background: #000; color: #ff00ff; font-size: 1.5rem; padding: 5px;"
+                );
+                console.log(
+                    "AI-svar kommer nu att modifieras med " +
+                    `${window.octagonState.friction}% kaos. ` +
+                    "Oktogonens sanning gäller."
+                );
+            }, 1500);
+        }
+        window.addEventListener('deviceorientation', checkDoubleFlip);
+    </script>
+</body>
+</html>
