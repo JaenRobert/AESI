@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nod Heatmap</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Nod Heatmap</h1>
+
+<h2>Aktivitet per nod</h2>
+<canvas id="activityChart"></canvas>
+
+<h2>Fel per nod</h2>
+<canvas id="errorChart"></canvas>
+
+<script>
+    const activityData = {{ node_activity | tojson }};
+    const errorData = {{ node_errors | tojson }};
+
+    const activityLabels = activityData.map(x => x.node);
+    const activityCounts = activityData.map(x => x.count);
+
+    const errorLabels = errorData.map(x => x.node);
+    const errorCounts = errorData.map(x => x.count);
+
+    new Chart(document.getElementById('activityChart'), {
+        type: 'bar',
+        data: {
+            labels: activityLabels,
+            datasets: [{
+                label: 'Aktivitet',
+                data: activityCounts,
+                backgroundColor: 'rgba(0, 120, 255, 0.6)'
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('errorChart'), {
+        type: 'bar',
+        data: {
+            labels: errorLabels,
+            datasets: [{
+                label: 'Fel',
+                data: errorCounts,
+                backgroundColor: 'rgba(255, 80, 80, 0.6)'
+            }]
+        }
+    });
+</script>
+
+<p><a href="/dashboard">Tillbaka</a></p>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "default_profile": "full",
+  "profiles": {
+    "full": [
+      "reflex",
+      "mistral",
+      "perplexity",
+      "claude_veto",
+      "sigma",
+      "llama",
+      "hafted"
+    ],
+    "snabb": [
+      "reflex",
+      "sigma",
+      "llama"
+    ],
+    "audit": [
+      "reflex",
+      "mistral",
+      "perplexity",
+      "claude_veto",
+      "sigma",
+      "llama",
+      "hafted",
+      "sentinel"
+    ]
+  }
+}

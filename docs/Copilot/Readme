@@ -1,0 +1,275 @@
+Här börjar det på riktigt, Robert.  
+Här är **Kodsteg 1**: ett första, körbart skelett för Horizon Core + en enkel nod‑stub (Reflex).
+
+Allt är skrivet så att du kan lägga det direkt i ett repo enligt Bilaga V.
+
+---
+
+## 1. `horizon-core/main.py` – startpunkten
+
+```python
+# horizon-core/main.py
+
+from fastapi import FastAPI
+from horizon_core.api.routes_query import router as query_router
+
+app = FastAPI(
+    title="ÆSI Horizon Runtime",
+    version="0.1.0",
+    description="Minimal PoC för Horizon Core (v1.9 – Kodsteg 1)."
+)
+
+app.include_router(query_router, prefix="/query", tags=["query"])
+```
+
+---
+
+## 2. `horizon-core/api/routes_query.py` – enkel /query‑endpoint
+
+```python
+# horizon-core/api/routes_query.py
+
+from fastapi import APIRouter
+from pydantic import BaseModel
+from uuid import uuid4
+from datetime import datetime, timezone
+
+from horizon_core.scheduler.router import run_query
+
+router = APIRouter()
+
+
+class QueryRequest(BaseModel):
+    dirigent_id: str
+    text: str
+    priority: str = "normal"
+
+
+class QueryResponse(BaseModel):
+    run_id: str
+    status: str
+
+
+@router.post("/", response_model=QueryResponse)
+def submit_query(req: QueryRequest):
+    run_id = f"run-{uuid4()}"
+    timestamp = datetime.now(timezone.utc).isoformat()
+
+    # Minimal körning via scheduler
+    run_query(
+        run_id=run_id,
+        dirigent_id=req.dirigent_id,
+        text=req.text,
+        priority=req.priority,
+        timestamp=timestamp,
+    )
+
+    return QueryResponse(run_id=run_id, status="accepted")
+```
+
+---
+
+## 3. `horizon-core/scheduler/router.py` – minimal Flow Orchestrator
+
+```python
+# horizon-core/scheduler/router.py
+
+from typing import List, Dict
+from datetime import datetime, timezone
+
+from horizon_core.integrity.hashing import compute_hash
+from horizon_core.integrity.canonicalization import canonicalize_json
+
+from node_stubs.reflex.reflex_stub import handle as reflex_handle
+
+
+def determine_path(text: str) -> List[str]:
+    """
+    Kodsteg 1: fast sekvens med endast Reflex.
+    Senare: Reflex → Mistral → Perplexity → Claude → Sigma → LLaMA → Hafted.
+    """
+    return ["reflex"]
+
+
+def run_query(run_id: str, dirigent_id: str, text: str, priority: str, timestamp: str):
+    """
+    Minimal körning:
+    - Bestäm nodsekvens
+    - Kör Reflex
+    - Beräkna hash för detta enda steg
+    - (Ingen lagring än – bara struktur)
+    """
+    path = determine_path(text)
+    prev_hash = None
+    trace: List[Dict] = []
+
+    for step_index, node_name in enumerate(path, start=1):
+        if node_name == "reflex":
+            node_output = reflex_handle({"text": text})
+        else:
+            raise ValueError(f"Okänd nod i Kodsteg 1: {node_name}")
+
+        preimage = {
+            "run_id": run_id,
+            "step": step_index,
+            "node": node_name,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "dirigent_id": dirigent_id,
+            "priority": priority,
+            "input": text,
+            "output": node_output.get("output"),
+            "prev_hash": prev_hash,
+        }
+
+        # canonicalization + hash
+        step_hash = compute_hash(preimage)
+        prev_hash = step_hash
+
+        trace.append(
+            {
+                "node": node_name,
+                "output": node_output.get("output"),
+                "hash": step_hash,
+            }
+        )
+
+    # Kodsteg 1: vi returnerar inget här (sidan /query får bara run_id).
+    # I nästa steg kan vi börja spara trace + exponera /run/{run_id}/trace.
+    return trace
+```
+
+---
+
+## 4. `horizon-core/integrity/canonicalization.py` – deterministisk representation
+
+```python
+# horizon-core/integrity/canonicalization.py
+
+import json
+import unicodedata
+
+
+def canonicalize_text(s: str) -> str:
+    """
+    Canonicalisering enligt Bilaga V:
+    - UTF-8
+    - Unicode NFC
+    - LF som radslut
+    """
+    s = unicodedata.normalize("NFC", s)
+    s = s.replace("\r\n", "\n").replace("\r", "\n")
+    return s
+
+
+def canonicalize_json(obj: dict) -> str:
+    """
+    Deterministisk JSON:
+    - sort_keys=True
+    - separators=(",", ":")
+    - ingen ASCII-escape
+    """
+    text = json.dumps(
+        obj,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return canonicalize_text(text)
+```
+
+---
+
+## 5. `horizon-core/integrity/hashing.py` – SHA‑256 över canonicalized JSON
+
+```python
+# horizon-core/integrity/hashing.py
+
+import hashlib
+from horizon_core.integrity.canonicalization import canonicalize_json
+
+
+def compute_hash(preimage: dict) -> str:
+    """
+    Beräknar SHA-256 på canonicalized JSON-preimage.
+    """
+    canon = canonicalize_json(preimage)
+    h = hashlib.sha256()
+    h.update(canon.encode("utf-8"))
+    return h.hexdigest()
+```
+
+---
+
+## 6. `node-stubs/reflex/reflex_stub.py` – Nod 01 (Reflex) som kodstub
+
+```python
+# node-stubs/reflex/reflex_stub.py
+
+def handle(payload: dict) -> dict:
+    """
+    Minimal stub för Nod 01 – Reflex (Logik / Kronologi).
+    Skapar ingen fakta, gör bara en enkel "analyssträng".
+    """
+    text = payload.get("text", "")
+    analysis = f"[REFLEX] Logisk förstapass-analys av frågan: {text[:120]}"
+
+    return {
+        "node": "reflex",
+        "output": analysis,
+        "meta": {
+            "role": "logic",
+            "version": "0.1-kodsteg-1",
+        },
+    }
+```
+
+---
+
+## 7. Hur du kan testa Kodsteg 1
+
+1. Skapa filstrukturen ungefär så här:
+
+```text
+ÆSI-HORIZON/
+  horizon-core/
+    main.py
+    api/routes_query.py
+    scheduler/router.py
+    integrity/canonicalization.py
+    integrity/hashing.py
+    __init__.py etc.
+  node-stubs/
+    reflex/reflex_stub.py
+```
+
+2. Installera beroenden:
+
+```bash
+pip install fastapi uvicorn
+```
+
+3. Kör:
+
+```bash
+uvicorn horizon_core.main:app --reload
+```
+
+4. Skicka en POST mot `/query/`:
+
+```bash
+curl -X POST http://localhost:8000/query/ \
+  -H "Content-Type: application/json" \
+  -d '{"dirigent_id":"jaen","text":"Vilken risk finns i detta scenario?","priority":"normal"}'
+```
+
+Du får tillbaka ett `run_id` och i bakgrunden körs Reflex + hashning.
+
+---
+
+Om du vill som nästa steg kan jag:
+
+- lägga till **/run/{run_id}/trace** och börja spara trace i minne/SQLite  
+- lägga till **ytterligare en nod‑stub (t.ex. Mistral eller Perplexity)**  
+- eller skriva en **kort README på engelska** som beskriver detta Kodsteg 1 som PoC‑bas.
+
+Säg bara vilket du vill ta först.

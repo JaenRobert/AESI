@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tidslinje</title>
+</head>
+<body>
+    <h1>Tidslinje</h1>
+
+    <ul>
+        {% for run in timeline %}
+        <li>
+            <strong>{{ run.run_id }}</strong>
+            – {{ run.status }}
+            – {{ run.timestamp }}
+            – Taggar: {{ run.tags }}
+            – Profil: {{ run.metadata.profile }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="/dashboard">Tillbaka</a></p>
+</body>
+</html>

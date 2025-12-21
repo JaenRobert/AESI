@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "default_profile": {"type": "string"},
+    "profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  },
+  "required": ["default_profile", "profiles"]
+}

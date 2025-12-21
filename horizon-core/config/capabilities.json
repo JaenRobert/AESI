@@ -1,0 +1,14 @@
+{
+  "reflex": {
+    "input": "text",
+    "output": "text",
+    "requires_policy": [],
+    "isolation_modes": ["strict"]
+  },
+  "mistral": {
+    "input": "text",
+    "output": "text",
+    "requires_policy": [],
+    "isolation_modes": ["strict"]
+  }
+}

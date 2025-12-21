@@ -1,0 +1,20 @@
+{
+  "default_mode": "strict",
+  "modes": {
+    "strict": {
+      "enforce_security": true,
+      "enforce_isolation": true,
+      "audit_level": "full"
+    },
+    "audit": {
+      "enforce_security": true,
+      "enforce_isolation": true,
+      "audit_level": "extended"
+    },
+    "permissive": {
+      "enforce_security": false,
+      "enforce_isolation": false,
+      "audit_level": "minimal"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics – Grafer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Analytics – Grafer</h1>
+
+<h2>Körningar per dag</h2>
+<canvas id="runsChart"></canvas>
+
+<h2>Fel per dag</h2>
+<canvas id="errorsChart"></canvas>
+
+<script>
+    const runsData = {{ runs_per_day | tojson }};
+    const errorsData = {{ errors_per_day | tojson }};
+
+    const runLabels = runsData.map(x => x.day);
+    const runCounts = runsData.map(x => x.count);
+
+    const errorLabels = errorsData.map(x => x.day);
+    const errorCounts = errorsData.map(x => x.count);
+
+    new Chart(document.getElementById('runsChart'), {
+        type: 'line',
+        data: {
+            labels: runLabels,
+            datasets: [{
+                label: 'Körningar per dag',
+                data: runCounts,
+                borderColor: 'blue'
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('errorsChart'), {
+        type: 'line',
+        data: {
+            labels: errorLabels,
+            datasets: [{
+                label: 'Fel per dag',
+                data: errorCounts,
+                borderColor: 'red'
+            }]
+        }
+    });
+</script>
+
+<p><a href="/dashboard">Tillbaka</a></p>
+
+</body>
+</html>

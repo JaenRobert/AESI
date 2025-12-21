@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nodlatens</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>Nodlatens (genomsnittlig körtid)</h1>
+
+<canvas id="latencyChart"></canvas>
+
+<script>
+    const latencyData = {{ node_latency | tojson }};
+    const labels = latencyData.map(x => x.node);
+    const durations = latencyData.map(x => x.avg_duration);
+
+    new Chart(document.getElementById('latencyChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Genomsnittlig körtid (sekunder)',
+                data: durations,
+                backgroundColor: 'rgba(255, 165, 0, 0.6)'
+            }]
+        }
+    });
+</script>
+
+<p><a href="/dashboard">Tillbaka</a></p>
+
+</body>
+</html>

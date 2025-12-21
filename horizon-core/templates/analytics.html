@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics</title>
+</head>
+<body>
+    <h1>Analytics</h1>
+
+    <ul>
+        <li><strong>Total runs:</strong> {{ data.total_runs }}</li>
+        <li><strong>Veto count:</strong> {{ data.veto_count }}</li>
+        <li><strong>Sentinel issues:</strong> {{ data.sentinel_issues }}</li>
+        <li><strong>Average steps per run:</strong> {{ data.avg_steps }}</li>
+        <li><strong>Average node time:</strong> {{ data.avg_node_time }} sekunder</li>
+        <li><strong>Node errors:</strong> {{ data.node_errors }}</li>
+    </ul>
+
+    <p><a href="/dashboard">Tillbaka</a></p>
+</body>
+</html>

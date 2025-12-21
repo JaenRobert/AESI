@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run {{ run.run_id }}</title>
+</head>
+<body>
+    <h1>Körning: {{ run.run_id }}</h1>
+    <p>Status: {{ run.status }}</p>
+    <p>Final hash: {{ run.final_hash }}</p>
+
+    <h2>Trace</h2>
+    <ul>
+        {% for step in run.trace %}
+        <li>
+            <strong>{{ step.node }}</strong>
+            {% if step.health == "error" %}
+                <span style="color:red;">[ERROR]</span>
+            {% endif %}
+            <br>
+            {{ step.output }}<br>
+            Hash: {{ step.hash }}<br>
+            Start: {{ step.start_time }}<br>
+            End: {{ step.end_time }}<br>
+            Duration: {{ step.duration }} sekunder<br>
+            Health: {{ step.health }}<br>
+            {% if step.error %}
+                Error: {{ step.error }}<br>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Export</h2>
+    <ul>
+        <li><a href="/export/{{ run.run_id }}.json">Exportera som JSON</a></li>
+        <li><a href="/export/{{ run.run_id }}.ndjson">Exportera som NDJSON</a></li>
+    </ul>
+
+    <p><a href="/dashboard">Tillbaka</a></p>
+</body>
+</html>

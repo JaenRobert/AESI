@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sökresultat</title>
+</head>
+<body>
+    <h1>Sökresultat</h1>
+
+    <ul>
+        {% for run in results %}
+        <li>
+            <a href="/dashboard/run/{{ run.run_id }}">
+                {{ run.run_id }}
+            </a>
+            – {{ run.status }}
+            – Taggar: {{ run.tags }}
+            – Profil: {{ run.metadata.profile }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="/dashboard">Tillbaka</a></p>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jämförelse</title>
+</head>
+<body>
+    <h1>Jämförelse mellan {{ diff.run_a }} och {{ diff.run_b }}</h1>
+
+    <h2>Pipeline</h2>
+    <p>Skillnad i nodsekvens: {{ diff.sequence_diff }}</p>
+
+    <h2>Hashkedja</h2>
+    <p>Skillnad i hashkedja: {{ diff.hashchain_diff }}</p>
+
+    <h2>Sentinel</h2>
+    <p>Skillnad i Sentinel-output: {{ diff.sentinel_diff }}</p>
+
+    <h2>Nod-diffar</h2>
+    <ul>
+        {% for nd in diff.node_diffs %}
+        <li>
+            <strong>{{ nd.node }}</strong>:
+            Output diff: {{ nd.output_diff }},
+            Hash diff: {{ nd.hash_diff }},
+            Health diff: {{ nd.health_diff }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="/dashboard">Tillbaka</a></p>
+</body>
+</html>
