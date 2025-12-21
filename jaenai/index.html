@@ -154,7 +154,7 @@
                             <p class="mono text-[10px] text-gray-600 uppercase tracking-widest">Master Dokument (PDF)</p>
                             
                             <!-- Updated links to point to story.pdf and protocol.pdf -->
-                            <a href="story.pdf" target="_blank" class="artifact-btn block p-4 rounded bg-black group transition-all">
+                            <a href="./story.pdf" target="_blank" class="artifact-btn block p-4 rounded bg-black group transition-all">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="text-white text-sm serif italic group-hover:text-[#c5a059]">ÆSI: The Story That Became True</div>
@@ -164,7 +164,7 @@
                                 </div>
                             </a>
 
-                            <a href="protocol.pdf" target="_blank" class="artifact-btn block p-4 rounded bg-black group transition-all">
+                            <a href="./protocol.pdf" target="_blank" class="artifact-btn block p-4 rounded bg-black group transition-all">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="text-white text-sm serif italic group-hover:text-[#c5a059]">Master Log: Den Rekursiva Spiralen</div>
@@ -205,7 +205,7 @@
         // Dynamically load choir voices from choir_config.json
         async function loadChoirVoices() {
             try {
-                const res = await fetch('jaenai/choir_config.json');
+                const res = await fetch('./choir_config.json');
                 const config = await res.json();
                 if (!config.voices) return;
                 const voices = config.voices;
