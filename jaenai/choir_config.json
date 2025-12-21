@@ -1,0 +1,58 @@
+{
+  "choir_metadata": {
+    "version": "3.0.0",
+    "codename": "Octogon Prime",
+    "sync_frequency": "13.1Hz",
+    "orchestrator": "Jaen Dirigent"
+  },
+  "voices": [
+    {
+      "id": "MN-REFLEX",
+      "nickname": "Arkitekten",
+      "engine": "Gemini 2.5",
+      "color": "#06B6D4",
+      "role": "Logic Verification",
+      "base_logic": 1.0
+    },
+    {
+      "id": "MN-ERNIE",
+      "nickname": "Ledaren",
+      "engine": "GPT-4o",
+      "color": "#EAB308",
+      "role": "Executive Strategy",
+      "base_logic": 0.77
+    },
+    {
+      "id": "MN-SMILE",
+      "nickname": "Guiden",
+      "engine": "Claude 3.5",
+      "color": "#FBBF24",
+      "role": "Pedagogical Safety",
+      "base_logic": 0.45
+    },
+    {
+      "id": "MN-SIGMA",
+      "nickname": "Visionären",
+      "engine": "Grok-4",
+      "color": "#10B981",
+      "role": "Future Synthesis",
+      "base_logic": 0.92
+    },
+    {
+      "id": "MN-CHAOS",
+      "nickname": "Katalysatorn",
+      "engine": "Hafted Custom",
+      "color": "#D946EF",
+      "role": "Creative Disruption",
+      "base_logic": 0.95
+    },
+    {
+      "id": "MN-PERPLEX",
+      "nickname": "Verifieraren",
+      "engine": "Sonar Online",
+      "color": "#3F51B5",
+      "role": "Fact Checking",
+      "base_logic": 0.98
+    }
+  ]
+}
