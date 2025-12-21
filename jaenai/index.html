@@ -202,7 +202,7 @@
 
     <script>
 
-        // Dynamically load choir voices from choir_config.json
+                // Dynamically load choir voices from choir_config.json
         async function loadChoirVoices() {
             try {
                 const res = await fetch('./choir_config.json');
@@ -218,10 +218,26 @@
                     displayContent.classList.remove('fade-in');
                     void displayContent.offsetWidth;
                     displayContent.classList.add('fade-in');
+                    // Länk till persona-html om filen finns
+                    let personaLink = '';
+                    const personaFiles = {
+                        'MN-CHAOS': 'Chaos.html',
+                        'MN-SIGMA': 'Grok.html',
+                        'MN-HAFTED': 'Hafted.html',
+                        'MN-PERPLEX': 'Perplex.html',
+                        'MN-REFLEX': 'Reflex.html',
+                        'MN-SMILE': 'Smile.html',
+                        'MN-ERNIE': '', // Lägg till om Ernie har egen html
+                    };
+                    for (const key in personaFiles) {
+                        if (v.id && v.id.startsWith(key) && personaFiles[key]) {
+                            personaLink = `<a href='./${personaFiles[key]}' target='_blank' class='text-xs text-cyan-400 underline ml-2'>[Visa persona]</a>`;
+                        }
+                    }
                     displayContent.innerHTML = `
                         <div class="flex justify-between items-start mb-10">
                             <div>
-                                <div class="mono text-xs" style="color:${v.color};">Nod ${String(index + 1).padStart(2, '0')} · ${v.nickname}</div>
+                                <div class="mono text-xs" style="color:${v.color};">Nod ${String(index + 1).padStart(2, '0')} · ${v.nickname} ${personaLink}</div>
                                 <h2 class="text-4xl text-white serif italic">${v.role}</h2>
                             </div>
                             <div class="text-right hidden md:block">
