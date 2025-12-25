@@ -1,0 +1,33 @@
+# ÆSI MASTER ROUTER v5.4 - CHARACTER ENCODING FIX
+# Denna version hanterar Æ-tecknet genom att inkludera URL-kodade mönster.
+
+RewriteEngine On
+RewriteBase /
+
+# 1. TVINGA HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. DOMÄN-ROUTING FÖR AESI.ME
+RewriteCond %{HTTP_HOST} ^(www\.)?aesi\.me [NC]
+RewriteRule ^$ index.php [L]
+
+# 3. EXPLICITA NOD-REGLER (0, 1, 1.1, 01)
+RewriteRule ^0$ 0.php [L,QSA]
+RewriteRule ^1$ 1.php [L,QSA]
+RewriteRule ^1\.1$ 1-1.php [L,QSA]
+RewriteRule ^01$ 01.php [L,QSA]
+
+# 4. ÆSI-ROUTING (Fix för specialtecken)
+# Vi lägger till regler som täcker både Æ, aesi och den URL-kodade varianten %C3%86
+RewriteRule ^(ÆSI|aesi|Æsi|%C3%86SI|%C3%86si)$ aesi.php [L,QSA,NC]
+
+# 5. GENERELL RENSNING (.PHP)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+# 6. GENERELL RENSNING (.HTML)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^.]+)$ $1.html [NC,L]
