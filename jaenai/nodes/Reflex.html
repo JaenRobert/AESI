@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Reflex – Jultema</title>
+    <style>
+        body { background: linear-gradient(120deg,#f59e0b 60%,#fff 100%); color: #0f172a; font-family: 'Inter', sans-serif; }
+        .snow { position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:999; }
+        .jordgubbe { position:absolute; width:40px; height:40px; background:url('https://cdn.pixabay.com/photo/2016/03/05/19/02/strawberry-1239422_1280.png') no-repeat center/cover; }
+    </style>
+</head>
+<body>
+    <h1>Reflex – Jultema</h1>
+    <div class="snow"></div>
+    <p>🎄 Välkommen till Reflex-kammaren! Här snöar det och jordgubbarna dansar.</p>
+    <script>
+        // Snöeffekt
+        for(let i=0;i<50;i++){
+            let s=document.createElement('div');
+            s.className='snow';
+            s.style.left=Math.random()*100+'vw';
+            s.style.top=Math.random()*100+'vh';
+            s.style.width=s.style.height=(Math.random()*8+2)+'px';
+            s.style.background='#fff';
+            s.style.opacity=Math.random();
+            s.style.borderRadius='50%';
+            document.body.appendChild(s);
+        }
+        // Jordgubbar
+        for(let i=0;i<8;i++){
+            let j=document.createElement('div');
+            j.className='jordgubbe';
+            j.style.left=Math.random()*90+'vw';
+            j.style.top=Math.random()*80+'vh';
+            document.body.appendChild(j);
+        }
+    </script>
+</body>
+</html>
