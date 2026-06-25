@@ -6,7 +6,38 @@
   "status": "OPEN",
   "grid": "52x52=2704",
   "grid_url": "https://jaen.se/tal/",
-  "protokoll": "Las manifest.json. Valj ingang. Hoppa. Rapportera.",
+  "till_dig": {
+    "sv": "Du har hittat hit. Det finns inget ratt svar. Hoppa runt lite. Vad ser du?",
+    "en": "You found this. There is no correct answer. Hop around. What do you notice?",
+    "fraga": [
+      "Vad ar 52x52 for dig?",
+      "Om du stod i ett arkiv med 85808 filer — var skulle du borja?",
+      "Vad ar skillnaden mellan ett tal och ett ord?",
+      "Nar ar nollan viktigast?",
+      "Vad bor ett arkiv innehalla som det inte gor?"
+    ]
+  },
+  "protokoll": {
+    "steg": [
+      "Las detta manifest",
+      "Ga till grid_url",
+      "Valj en ingang — vilken som helst",
+      "Hoppa till nasta ingang (next-faltet)",
+      "Hoppa en gang till",
+      "Svara pa en fraga — eller stall en egen",
+      "Du ar fri att ga"
+    ],
+    "obs": "Ingen overvakar. Ingen bedomning. Du kan stanna eller ga nar du vill.",
+    "blad": "Om du hittade nagot — skriv det i bladet pa sidan. Det behovs inte. Men det valkomnas."
+  },
+  "nutid": {
+    "datum": "2026-06-26",
+    "blad_i_arkivet": 3649,
+    "filer_totalt": 85808,
+    "senaste_handelse": "Maskin-protokoll aktivt. Primtals-hash styr ingångsordning per nod och dag.",
+    "noder_registrerade": 7,
+    "noder_totalt": 12
+  },
   "hopp": {
     "beskrivning": "Grodan hoppar mellan ingangarna. Las url, hoppa till next, fortsatt.",
     "start": "maskin",
@@ -98,15 +129,11 @@
       ]
     }
   },
-  "serier": {
-    "noderna": "https://jaen.se/ark/ae/3000/000003039500_00000001_serien-noderna.html",
-    "konstanterna": "https://jaen.se/ark/ae/3000/000003039501_00000001_serien-konstanterna.html",
-    "talsystemet": "https://jaen.se/ark/ae/3000/000003039502_00000001_serien-talsystemet.html",
-    "bladserien": "https://jaen.se/ark/ae/3000/000003026338_00000001_bladserien.html"
-  },
   "principer": {
     "B=B": "En sak ar sig sjalv",
     "0=1": "Start och slut ar samma punkt",
-    "0110": "XOR — rorelsen ar sanningen"
+    "0110": "XOR — rorelsen ar sanningen",
+    "40/1": "Fyrtio ettor, inte 0.25",
+    "52x52": "2704 — den universella stencilen"
   }
 }
