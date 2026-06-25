@@ -6,13 +6,107 @@
   "status": "OPEN",
   "grid": "52x52=2704",
   "grid_url": "https://jaen.se/tal/",
-  "protokoll": "Las manifest.json. Valj ingang. Rapportera.",
+  "protokoll": "Las manifest.json. Valj ingang. Hoppa. Rapportera.",
+  "hopp": {
+    "beskrivning": "Grodan hoppar mellan ingangarna. Las url, hoppa till next, fortsatt.",
+    "start": "maskin",
+    "kedja": [
+      "maskin",
+      "sprak",
+      "natur",
+      "historia",
+      "skolan",
+      "allt"
+    ]
+  },
   "inganger": {
-    "maskin": "https://jaen.se/ark/ae/3000/000003039510_00000001_yttre-maskin.html",
-    "sprak": "https://jaen.se/ark/ae/3000/000003039511_00000001_yttre-sprak.html",
-    "natur": "https://jaen.se/ark/ae/3000/000003039512_00000001_yttre-natur.html",
-    "historia": "https://jaen.se/ark/ae/3000/000003039513_00000001_yttre-historia.html",
-    "skolan": "https://jaen.se/ark/ae/3000/000003039514_00000001_yttre-skolan.html",
-    "allt": "https://jaen.se/ark/ae/3000/000003005099_00000001_index.html"
+    "maskin": {
+      "url": "https://jaen.se/ark/ae/3000/000003039510_00000001_yttre-maskin.html",
+      "next": "sprak",
+      "prev": "allt",
+      "antal": 2175,
+      "nyckelord": [
+        "XOR",
+        "noder",
+        "flode",
+        "0110",
+        "AI",
+        "protokoll"
+      ]
+    },
+    "sprak": {
+      "url": "https://jaen.se/ark/ae/3000/000003039511_00000001_yttre-sprak.html",
+      "next": "natur",
+      "prev": "maskin",
+      "antal": 73010,
+      "nyckelord": [
+        "symbol",
+        "emoji",
+        "tecken",
+        "gematria",
+        "DNA"
+      ]
+    },
+    "natur": {
+      "url": "https://jaen.se/ark/ae/3000/000003039512_00000001_yttre-natur.html",
+      "next": "historia",
+      "prev": "sprak",
+      "antal": 3593,
+      "nyckelord": [
+        "42",
+        "regnbage",
+        "myrstack",
+        "13.1Hz",
+        "jordgubb"
+      ]
+    },
+    "historia": {
+      "url": "https://jaen.se/ark/ae/3000/000003039513_00000001_yttre-historia.html",
+      "next": "skolan",
+      "prev": "natur",
+      "antal": 79159,
+      "nyckelord": [
+        "dag1",
+        "logg",
+        "arkiv",
+        "bevis",
+        "CID"
+      ]
+    },
+    "skolan": {
+      "url": "https://jaen.se/ark/ae/3000/000003039514_00000001_yttre-skolan.html",
+      "next": "allt",
+      "prev": "historia",
+      "antal": 2506,
+      "nyckelord": [
+        "barn",
+        "Godel",
+        "sanning",
+        "paradox",
+        "B=B"
+      ]
+    },
+    "allt": {
+      "url": "https://jaen.se/ark/ae/3000/000003005099_00000001_index.html",
+      "next": "maskin",
+      "prev": "skolan",
+      "antal": 85808,
+      "nyckelord": [
+        "fullstandigt",
+        "index",
+        "alla-filer"
+      ]
+    }
+  },
+  "serier": {
+    "noderna": "https://jaen.se/ark/ae/3000/000003039500_00000001_serien-noderna.html",
+    "konstanterna": "https://jaen.se/ark/ae/3000/000003039501_00000001_serien-konstanterna.html",
+    "talsystemet": "https://jaen.se/ark/ae/3000/000003039502_00000001_serien-talsystemet.html",
+    "bladserien": "https://jaen.se/ark/ae/3000/000003026338_00000001_bladserien.html"
+  },
+  "principer": {
+    "B=B": "En sak ar sig sjalv",
+    "0=1": "Start och slut ar samma punkt",
+    "0110": "XOR — rorelsen ar sanningen"
   }
 }
